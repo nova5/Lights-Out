@@ -1,0 +1,21 @@
+﻿@page "/"
+
+<h1>Lights Out</h1>
+
+<table>
+@for (int x = 0; x < puzzle.NumberOfRows; x++)
+{
+    <tr>
+    @for (int y = 0; y < puzzle.NumberOfCols; y++)
+    {
+        <td>@(puzzle.Board[x,y] ? "O" : "X")</td>
+    }
+    </tr>
+}
+</table>
+
+@code {
+
+    private LightsOutPuzzle puzzle = new LightsOutPuzzle();
+
+}
