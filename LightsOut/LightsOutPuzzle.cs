@@ -26,7 +26,10 @@ namespace LightsOut
 
         public void CreateBoard(int numberOfRows, int numberOfCols)
         {
-            // range checking here
+            if (numberOfRows < 2 || numberOfCols < 2)
+            {
+                throw new ArgumentException("The board rows and columns must be greater than 1");
+            }
 
             NumberOfRows = numberOfRows;
             NumberOfCols = numberOfCols;
@@ -49,7 +52,7 @@ namespace LightsOut
         {
             if (x < 0 || x >= NumberOfRows || y < 0 || y >= NumberOfCols)
             {
-                throw new Exception("Coordinates out of range");
+                throw new ArgumentException("Coordinates out of range");
             }
 
             Board[x,y] = !Board[x, y];
