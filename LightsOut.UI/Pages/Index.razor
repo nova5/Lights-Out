@@ -2,20 +2,64 @@
 
 <h1>Lights Out</h1>
 
-<table>
-@for (int x = 0; x < puzzle.NumberOfRows; x++)
-{
-    <tr>
-    @for (int y = 0; y < puzzle.NumberOfCols; y++)
+
+<table class="board">
+    @for (int x = 0; x < puzzle.NumberOfRows; x++)
     {
-        <td>@(puzzle.Board[x,y] ? "O" : "X")</td>
+        <tr class="row">
+        @for (int y = 0; y < puzzle.NumberOfCols; y++)
+        {
+            int row = x;
+            int col = y;
+            <td class="light @(puzzle.Board[x,y] ? "light-on" : "light-off")" 
+                @onclick="@(() => OnClickLight(row, col))"></td>
+        }
+        </tr>
     }
-    </tr>
-}
 </table>
+
+@if (completed)
+{
+    <h2>Puzzle completed!!<br />
+        <button class="btn btn-success" @onclick="@(() => NewGame())">
+            New puzzle
+        </button>
+    </h2>
+}
+else
+{
+    <h2>
+        <button class="btn btn-warning" @onclick="@(() => puzzle.Cheat())">
+            I haven't got time for this - Cheat
+        </button>
+    </h2>
+}
+
 
 @code {
 
-    private LightsOutPuzzle puzzle = new LightsOutPuzzle();
+    private LightsOutPuzzle puzzle;
+    private bool completed;
 
+    protected override async Task OnInitializedAsync()
+    {
+        if (puzzle == null)
+        {
+            puzzle = new LightsOutPuzzle();
+            puzzle.CreateBoard(5, 5);
+            completed = puzzle.Completed;
+        }
+    }
+
+    protected void OnClickLight(int x, int y)
+    {
+        puzzle.ToggleLights(x, y);
+        completed = puzzle.Completed;
+    }
+
+    protected void NewGame()
+    {
+        puzzle.CreateBoard(5, 5);
+        completed = puzzle.Completed;
+    }
 }
