@@ -2,7 +2,6 @@
 
 <h1>Lights Out</h1>
 
-
 <table class="board">
     @for (int x = 0; x < puzzle.NumberOfRows; x++)
     {
@@ -30,7 +29,7 @@ else
 {
     <h2>
         <button class="btn btn-warning" @onclick="@(() => puzzle.Cheat())">
-            I haven't got time for this - Cheat
+            I haven't got time for this!
         </button>
     </h2>
 }

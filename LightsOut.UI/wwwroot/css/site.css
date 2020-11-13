@@ -181,6 +181,9 @@ app {
         display: block;
     }
 
+    /* Additional CSS added from here */
+    /**********************************/
+
     .board {
         margin-left: 1em;
     }
